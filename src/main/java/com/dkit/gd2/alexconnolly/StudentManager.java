@@ -15,15 +15,17 @@ public class StudentManager {
         // later, load from text file "students.dat" and populate studentsMap
     }
 
-//    public getStudent() {
+//    public Student getStudent(int caoNum) {
 //    }
 //
-//    public addStudent() {
+//    public Student addStudent(int caoNum) {
 //    }
 //
-//    public removeStudent() {
+//    public void removeStudent(int caoNum) {
 //    }
 
-//    isRegistered( caoNumber)
-//        students.isValid()
+//    public void isRegistered(int caoNum)
+//    {
+//        students.isValid();
+//    }
 }
