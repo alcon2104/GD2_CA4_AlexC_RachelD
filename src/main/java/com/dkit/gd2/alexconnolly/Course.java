@@ -8,6 +8,15 @@ public class Course {
     private String institution; // Dundalk Institute of Technology
 
     // Copy Constructor
+    public Course copyCourse(Course course)
+    {
+        this.courseId = course.getCourseId();
+        this.level =  course.getLevel();
+        this.title =  course.getTitle();
+        this.institution =  course.getInstitution();
+
+        return new Course(this.courseId, this.level, this.title, this.institution);
+    }
     // Accepts a Course object as an argument and copies all the field values
     // into a new Course object. Returns the new cloned object.
     // (add here)
