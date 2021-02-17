@@ -18,10 +18,13 @@ public class StudentManager {
 //    public Student getStudent(int caoNum) {
 //    }
 //
-//    public Student addStudent(int caoNum) {
+//    public Student addStudent(int caoNum)
+//    {
+        //take in student details from keyboard
+        //return a copy of the student to the map
 //    }
 //
-//    public void removeStudent(int caoNum) {
+//    public void removeStudent(int caoNum){
 //    }
 
 //    public void isRegistered(int caoNum)
