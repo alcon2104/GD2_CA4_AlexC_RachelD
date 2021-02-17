@@ -16,6 +16,9 @@ public class Course {
         this.institution =  course.getInstitution();
         return new Course(this.courseId, this.level, this.title, this.institution);
     }
+    // Accepts a Course object as an argument and copies all the field values
+    // into a new Course object. Returns the new cloned object.
+    // (add here)
 
 
     // Constructor
