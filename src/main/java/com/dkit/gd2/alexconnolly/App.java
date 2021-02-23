@@ -27,7 +27,7 @@ public class App
         studentManager.loadStudentsFromFile();
 
         CourseManager courseManager= new CourseManager();
-        //coursesManager.loadCoursesFromFile();
+        courseManager.loadCoursesFromFile();
 
 
         // load manager to provide functionality to allow a student
@@ -42,6 +42,8 @@ public class App
         //StudentManager
 //        System.out.println(studentManager.getStudent(78231230));
 //        studentManager.removeStudent();
+
+        courseManager.getAllCourses();
 
 
         // display a menu to do things
@@ -209,7 +211,7 @@ public class App
                         //courseManager.getCourseDetails();
                         break;
                     case GET_ALL_COURSES:
-                        //courseManager.getAllCourses();
+                        courseManager.getAllCourses();
                         break;
                 }
             }
