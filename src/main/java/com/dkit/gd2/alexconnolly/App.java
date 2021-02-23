@@ -24,7 +24,7 @@ public class App
 
 
         StudentManager studentManager = new StudentManager();
-        //studentManager.loadStudentsFromFile();
+        studentManager.loadStudentsFromFile();
 
         CourseManager courseManager= new CourseManager();
         //coursesManager.loadCoursesFromFile();
@@ -37,6 +37,12 @@ public class App
         // so we 'inject' or pass-in these objects.
         //
         CourseChoicesManager mgr = new CourseChoicesManager(studentManager, courseManager);
+
+        //test runs for methods
+        //StudentManager
+//        System.out.println(studentManager.getStudent(78231230));
+//        studentManager.removeStudent();
+
 
         // display a menu to do things
         doMainMenuLoop(studentManager, courseManager);
@@ -52,9 +58,8 @@ public class App
 //        else
 //            System.out.println("Not logged in - try again");
 
-
         //mgr.saveToFile();
-
+        studentManager.saveStudentsToFile();
     }
 
     private void doMainMenuLoop(StudentManager studentManager, CourseManager courseManager)
