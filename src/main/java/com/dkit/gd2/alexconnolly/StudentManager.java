@@ -66,27 +66,22 @@ public class StudentManager {
         }
     }
 
-    public Student getStudent(int caoNum)
+    public void getStudent()
     {
-        boolean studentExists = false;
-
-        if(students!=null)
+        if(this.students!= null)
         {
-            for (Student student : students) {
-                if (student.getCaoNumber() == caoNum)
-                {
-                    Student clonedStudent = new Student(student);
-                    studentExists=true;
-                    return clonedStudent;
-                }
-            }
+            int idToFind = Integer.parseInt(enterField("student CAO number to find"));
+            Student studentToFind = findStudent(idToFind);
 
-            if (!studentExists)
+            if(studentToFind != null)
             {
-                System.out.println(Colours.RED + "Sorry, a student with this CAO number does not exist." + Colours.RESET);
+                System.out.println(studentToFind);
+            }
+            else
+            {
+                System.out.println(Colours.RED + "That student does not exist" + Colours.RESET);
             }
         }
-        return null;
     }
 //
 //    public Student addStudent(int caoNum)

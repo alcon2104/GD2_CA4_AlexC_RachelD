@@ -146,7 +146,6 @@ public class App
                 {
                     option = Integer.parseInt(input);
                 }
-
                 if(option <0 || option >=StudentMenu.values().length)
                 {
                     throw new IllegalArgumentException();
@@ -158,10 +157,10 @@ public class App
                         loop = false;
                         break;
                     case DISPLAY_COURSE_DETAILS:
-                        // studentManager.printStudent();
+                        courseManager.getCourse();
                         break;
                     case DISPLAY_ALL_COURSES:
-                       // studentManager.printStudent();
+                       courseManager.getAllCourses();
                         break;
                     case DISPLAY_STUDENT_CHOICES:
                         // studentManager.getStudentChoices();
@@ -218,25 +217,25 @@ public class App
                         loop = false;
                         break;
                     case ADD_COURSE:
-                        //courseManager.getCourseDetails();
+                        //courseManager.addCourse();
                         break;
                     case REMOVE_COURSE:
-                        //courseManager.getCourseDetails();
+                        courseManager.removeCourse();
                         break;
                     case DISPLAY_ALL_COURSES:
                         courseManager.getAllCourses();
                         break;
                     case DISPLAY_COURSE_DETAILS:
-                        //courseManager.getCourseDetails();
+                        courseManager.getCourse();
                         break;
                     case ADD_STUDENT:
-                        //courseManager.getCourseDetails();
+                        //studentManager.addStudent();
                         break;
                     case REMOVE_STUDENT:
-                        //courseManager.getCourseDetails();
+                        studentManager.removeStudent();
                         break;
                     case DISPLAY_STUDENT:
-                        //courseManager.getCourseDetails();
+                        studentManager.getStudent();
                         break;
                 }
             }
