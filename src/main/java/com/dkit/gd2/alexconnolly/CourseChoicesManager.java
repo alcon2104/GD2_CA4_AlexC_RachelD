@@ -34,7 +34,6 @@ public class CourseChoicesManager {
     CourseChoicesManager(StudentManager studentManager, CourseManager courseManager) {
         this.studentManager = studentManager;
         this.courseManager = courseManager;
-
     }
 
 //    public Student getStudentDetails() {
@@ -53,110 +52,93 @@ public class CourseChoicesManager {
 //    }
 //
 //
-//    public boolean login()
-//    {
-//        Scanner keyboard = new Scanner(System.in);
-//        System.out.println("Please enter your CAO Number:");
-//        String studentCaoNum = keyboard.nextLine();
-//        System.out.println("Please enter your date of birth:");
-//        String studentDob = keyboard.nextLine();
-//        System.out.println("Please enter your password");
-//        String studentPassword = keyboard.nextLine();
-//
-//        if(verifyDateOfBirth(studentDob) && verifyPassword(studentPassword) && verifyCaoNum(studentCaoNum))
-//        {
-//            System.out.println("You have logged in successfully");
-//            return true;
-//        }
-//        else
-//        {
-//            System.out.println("One or more of your details were incorrect, please try logging in again");
-//            return false;
-//        }
-//    }
-//
-//    public boolean verifyDateOfBirth(String dateOfBirth)
-//    {
-//        if(dateOfBirth != null)
-//        {
-//            //4 digits for year, starting with 20, 2 digits for month, firs one can't go over 1 (12 months), 2 digits for days, up to 31
-//            if(!dateOfBirth.matches("^20{1}\\d{2}/[0-1]{1}\\d{1}/[0-3]{1}\\d{1}"))
-//            {
-//                System.out.println("Invalid birth date format");
-//                return false;
-//            }
-//            else
-//            {
-//                if (this.dateOfBirth.equals(dateOfBirth))
-//                {
-//                    return true;
-//                }
-//                else if ((!this.dateOfBirth.equals(dateOfBirth)))
-//                {
-//                    return false;
-//                }
-//            }
-//        }
-//        else if(dateOfBirth == null)
-//        {
-//            return false;
-//        }
-//        return false;
-//    }
-//
-//    public boolean verifyPassword(String password)
-//    {
-//        if(password != null)
-//        {
-//            if(password.length() >= 8)
-//            {
-//                if (this.password.equals(password))
-//                {
-//                    return true;
-//                }
-//                else if (!this.password.equals(password))
-//                {
-//                    return false;
-//                }
-//            }
-//            else if(password.length() < 0 || password.length() > 16)
-//            {
-//                return false;
-//            }
-//        }
-//        else if(password == null)
-//        {
-//            return false;
-//        }
-//        return false;
-//    }
-//
-//    public boolean verifyCaoNum(String caoNum)
-//    {
-//        if(caoNum != null)
-//        {
-//            if(caoNum.length() == 8)
-//            {
-//                if(caoNum.contains("[0-9]"))
-//                {
-//                    return true;
-//                }
-//                else
-//                {
-//                    return false;
-//                }
-//            }
-//            else if(caoNum.length() > 8 || caoNum.length() < 8)
-//            {
-//                return false;
-//            }
-//        }
-//        else
-//        {
-//            return false;
-//        }
-//        return false;
-//    }
+    public boolean login()
+    {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Please enter your CAO Number:");
+        String studentCaoNum = keyboard.nextLine();
+        System.out.println("Please enter your date of birth:");
+        String studentDob = keyboard.nextLine();
+        System.out.println("Please enter your password");
+        String studentPassword = keyboard.nextLine();
+
+        if(verifyDateOfBirth(studentDob) && verifyPassword(studentPassword) && verifyCaoNum(studentCaoNum))
+        {
+            System.out.println("You have logged in successfully");
+            return true;
+        }
+        else
+        {
+            System.out.println("One or more of your details were incorrect, please try logging in again");
+            return false;
+        }
+    }
+
+    public boolean verifyDateOfBirth(String dateOfBirth)
+    {
+        /* year month date
+        String dobRegex ="^20{1}\\d{2}/[0-1]{1}\\d{1}/[0-3]{1}\\d{1}";
+        */
+        String dobRegex ="^[0-3]{1}\\d{1}/[0-1]{1}\\d{1}/20{1}\\d{2}";
+
+        if(dateOfBirth != null)
+        {
+            //4 digits for year, starting with 20, 2 digits for month, firs one can't go over 1 (12 months), 2 digits for days, up to 31
+            if(!dateOfBirth.matches(dobRegex))
+            {
+                System.out.println("Invalid birth date format");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else if(dateOfBirth == null)
+        {
+            return false;
+        }
+        return false;
+    }
+
+    public boolean verifyPassword(String password)
+    {
+        if(password != null)
+        {
+            if(password.length() >= 8)
+            {
+                return true;
+            }
+
+            else if(password.length() < 0 || password.length() > 16)
+            {
+                System.out.println("Password format invalid");
+                return false;
+            }
+        }
+        else if(password == null)
+        {
+            return false;
+        }
+        return false;
+    }
+
+    public boolean verifyCaoNum(String caoNum)
+    {
+        if(caoNum != null)
+        {
+            if (caoNum.matches("[0-9]{8}"))
+            {
+                return true;
+            }
+            else
+            {
+                System.out.println("CAHOHO NO!");
+                return false;
+            }
+        }
+        return false;
+    }
 
 
 }

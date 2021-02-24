@@ -1,6 +1,5 @@
 package com.dkit.gd2.alexconnolly;
 
-import java.util.List;
 import java.util.Scanner;
 
 // Test to see if repo works
@@ -14,6 +13,7 @@ import java.util.Scanner;
 public class App
 {
     private static Scanner keyboard = new Scanner(System.in);
+    boolean loginVerif = false;
     public static void main( String[] args )
     {
         System.out.println( "CAO Online - CA4" );
@@ -36,7 +36,7 @@ public class App
         // StudentManager and the CourseManager,
         // so we 'inject' or pass-in these objects.
         //
-        CourseChoicesManager mgr = new CourseChoicesManager(studentManager, courseManager);
+        CourseChoicesManager courseChoicesManager = new CourseChoicesManager(studentManager, courseManager);
 
         //test runs for methods
         //StudentManager
@@ -47,21 +47,31 @@ public class App
 
 
         // display a menu to do things
-        doMainMenuLoop(studentManager, courseManager);
+        loginVerif = loginVerification(courseChoicesManager, studentManager, courseManager);
 
         // manual testing of mgr public interface
 
-//        if ( mgr.login(22224444, "xxxx","bbbb") )
-//        {
-//            Student student = mgr.getStudentDetails(22224444);
-//
-//            System.out.println("Student: " + student);
-//        }
-//        else
-//            System.out.println("Not logged in - try again");
+
 
         //mgr.saveToFile();
         studentManager.saveStudentsToFile();
+        courseManager.saveCoursesToFile();
+    }
+
+    private boolean loginVerification(CourseChoicesManager courseChoicesManager, StudentManager studentManager,
+                                        CourseManager courseManager)
+    {
+        boolean loop = true;
+        while(loop)
+        {
+            loginVerif=courseChoicesManager.login();
+            if (loginVerif == true)
+            {
+                doMainMenuLoop(studentManager, courseManager);
+                loop = false;
+            }
+        }
+        return false;
     }
 
     private void doMainMenuLoop(StudentManager studentManager, CourseManager courseManager)
@@ -94,14 +104,11 @@ public class App
                     case  QUIT_APPLICATION:
                         loop = false;
                         break;
-                    case SIGN_IN:
-                        //signInVerification();
-                        break;
                     case DISPLAY_STUDENT_MENU:
-                        doStudentMenuLoop(studentManager);
+                        doStudentMenuLoop(studentManager, courseManager);
                         break;
-                    case DISPLAY_COURSES_MENU:
-                        doCoursesMenuLoop(courseManager);
+                    case DISPLAY_ADMINISTRATOR_MENU:
+                        doAdministratorMenuLoop(studentManager, courseManager);
                         break;
                 }
             }
@@ -122,7 +129,7 @@ public class App
         System.out.print("Enter a number to select the option (0 to quit):>");
     }
 
-    private void doStudentMenuLoop(StudentManager studentManager) {
+    private void doStudentMenuLoop(StudentManager studentManager, CourseManager courseManager) {
         boolean loop = true;
         StudentMenu menuOption;
         int option;
@@ -150,13 +157,16 @@ public class App
                     case  QUIT_STUDENT_MENU:
                         loop = false;
                         break;
-                    case GET_STUDENT_DETAILS:
+                    case DISPLAY_COURSE_DETAILS:
+                        // studentManager.printStudent();
+                        break;
+                    case DISPLAY_ALL_COURSES:
                        // studentManager.printStudent();
                         break;
-                    case GET_STUDENT_CHOICES:
+                    case DISPLAY_STUDENT_CHOICES:
                         // studentManager.getStudentChoices();
                         break;
-                    case UPDATE_CHOICE:
+                    case UPDATE_CHOICES:
                        //studentManager.updateChoice();
                         break;
 
@@ -178,14 +188,14 @@ public class App
     }
 
 
-    private void doCoursesMenuLoop(CourseManager courseManager)
+    private void doAdministratorMenuLoop(StudentManager studentManager, CourseManager courseManager)
     {
         boolean loop = true;
-        CoursesMenu menuOption;
+        AdministratorMenu menuOption;
         int option;
         while(loop)
         {
-            printCoursesMenu();
+            printAdministratorMenu();
             try
             {
                 String input = keyboard.nextLine();
@@ -197,21 +207,36 @@ public class App
                     option = Integer.parseInt(input);
                 }
 
-                if(option <0 || option >=CoursesMenu.values().length)
+                if(option <0 || option >= AdministratorMenu.values().length)
                 {
                     throw new IllegalArgumentException();
                 }
-                menuOption =CoursesMenu.values()[option];
+                menuOption = AdministratorMenu.values()[option];
                 switch(menuOption)
                 {
-                    case  QUIT_COURSES_MENU:
+                    case  QUIT_ADMINISTRATOR_MENU:
                         loop = false;
                         break;
-                    case GET_COURSE_DETAILS:
+                    case ADD_COURSE:
                         //courseManager.getCourseDetails();
                         break;
-                    case GET_ALL_COURSES:
+                    case REMOVE_COURSE:
+                        //courseManager.getCourseDetails();
+                        break;
+                    case DISPLAY_ALL_COURSES:
                         courseManager.getAllCourses();
+                        break;
+                    case DISPLAY_COURSE_DETAILS:
+                        //courseManager.getCourseDetails();
+                        break;
+                    case ADD_STUDENT:
+                        //courseManager.getCourseDetails();
+                        break;
+                    case REMOVE_STUDENT:
+                        //courseManager.getCourseDetails();
+                        break;
+                    case DISPLAY_STUDENT:
+                        //courseManager.getCourseDetails();
                         break;
                 }
             }
@@ -222,11 +247,11 @@ public class App
         }
     }
 
-    private void printCoursesMenu()
+    private void printAdministratorMenu()
     {
         System.out.println("\n Options to select:");
-        for(int i = 0; i<CoursesMenu.values().length; i++){
-            System.out.println("\t"+ Colours.BLUE + i + ". " + CoursesMenu.values()[i].toString() + Colours.RESET);
+        for(int i = 0; i< AdministratorMenu.values().length; i++){
+            System.out.println("\t"+ Colours.BLUE + i + ". " + AdministratorMenu.values()[i].toString() + Colours.RESET);
         }
         System.out.print("Enter a number to select the option (0 to quit):>");
     }
