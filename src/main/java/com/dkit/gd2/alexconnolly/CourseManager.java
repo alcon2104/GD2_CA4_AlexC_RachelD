@@ -68,28 +68,22 @@ public class CourseManager {
         }
     }
 
-    public Course getCourse(String courseID)
+    public void getCourse()
     {
-        boolean courseExists = false;
-
-        if(courses!=null)
+        if(this.courses != null)
         {
-            for (Course course : courses)
-            {
-                if (course.getCourseId() == courseID)
-                {
-                    Course clonedCourse = new Course(course);
-                    courseExists=true;
-                    return clonedCourse;
-                }
-            }
+            String idToFind = enterField("course ID to find");
+            Course courseToFind = findCourse(idToFind);
 
-            if (!courseExists)
+            if(courseToFind != null)
             {
-                System.out.println(Colours.RED + "Sorry, a course with this course ID does not exist." + Colours.RESET);
+                System.out.println(courseToFind);
+            }
+            else
+            {
+                System.out.println(Colours.RED + "That course does not exist" + Colours.RESET);
             }
         }
-        return null;
     }
 
     public void getAllCourses()
@@ -138,6 +132,18 @@ public class CourseManager {
     }
 
     private Course findCourse(int idToFind)
+    {
+        for(Course course : courses)
+        {
+            if(course.getCourseId().equals(idToFind))
+            {
+                return course;
+            }
+        }
+        return null;
+    }
+
+    private Course findCourse(String idToFind)
     {
         for(Course course : courses)
         {
