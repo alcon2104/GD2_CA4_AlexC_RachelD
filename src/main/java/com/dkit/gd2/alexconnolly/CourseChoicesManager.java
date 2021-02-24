@@ -55,21 +55,22 @@ public class CourseChoicesManager {
     public boolean login()
     {
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("Please enter your CAO Number:");
+        System.out.println(Colours.PURPLE+"Please enter your CAO Number:");
         String studentCaoNum = keyboard.nextLine();
         System.out.println("Please enter your date of birth:");
         String studentDob = keyboard.nextLine();
-        System.out.println("Please enter your password");
+        System.out.println("Please enter your password:"+Colours.RESET);
         String studentPassword = keyboard.nextLine();
 
         if(verifyDateOfBirth(studentDob) && verifyPassword(studentPassword) && verifyCaoNum(studentCaoNum))
         {
-            System.out.println("You have logged in successfully");
+            System.out.println(Colours.GREEN + "You have logged in successfully"+Colours.RESET);
             return true;
         }
         else
         {
-            System.out.println("One or more of your details were incorrect, please try logging in again");
+            System.out.println(Colours.RED+"One or more of your details were incorrect, " +
+                                "please try logging in again"+Colours.RESET);
             return false;
         }
     }
@@ -86,7 +87,7 @@ public class CourseChoicesManager {
             //4 digits for year, starting with 20, 2 digits for month, firs one can't go over 1 (12 months), 2 digits for days, up to 31
             if(!dateOfBirth.matches(dobRegex))
             {
-                System.out.println("Invalid birth date format");
+                System.out.println(Colours.RED+"Invalid birth date format"+Colours.RESET);
                 return false;
             }
             else
@@ -105,14 +106,14 @@ public class CourseChoicesManager {
     {
         if(password != null)
         {
-            if(password.length() >= 8)
+            if(password.length() >= 8 && password.length() <= 16)
             {
                 return true;
             }
 
-            else if(password.length() < 0 || password.length() > 16)
+            else
             {
-                System.out.println("Password format invalid");
+                System.out.println(Colours.RED+"Password format invalid"+Colours.RESET);
                 return false;
             }
         }
@@ -133,7 +134,7 @@ public class CourseChoicesManager {
             }
             else
             {
-                System.out.println("CAHOHO NO!");
+                System.out.println(Colours.RED+"CAO format invalid!"+Colours.RESET);
                 return false;
             }
         }

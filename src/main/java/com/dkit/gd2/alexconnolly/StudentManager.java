@@ -84,12 +84,32 @@ public class StudentManager {
         }
     }
 //
-//    public Student addStudent(int caoNum)
-//    {
-        //take in student details from keyboard
-        //return a copy of the student to the map
-//    }
-//
+    public void addStudent()
+    {
+        int caoNumber = Integer.parseInt(loopUntilValidEntry("caoNumber"));
+        String dateOfBirth = loopUntilValidEntry("dateOfBirth");
+        String password = loopUntilValidEntry("password");
+        String email = loopUntilValidEntry("email");
+        boolean alreadyExists = false;
+
+        for(Student student: students)
+        {
+            if(student.getCaoNumber()==(caoNumber)){
+                System.out.println(Colours.RED+"This student already exists, student will not be added"+Colours.RESET);
+                alreadyExists=true;
+            }
+        }
+
+        if(alreadyExists==false)
+        {
+            Student addedStudent = new Student(caoNumber, dateOfBirth, password, email);
+            Student clonedStudent = new Student(addedStudent);
+
+            this.students.add(addedStudent);
+            System.out.println(Colours.GREEN+"Student has been successfully added"+Colours.RESET);
+        }
+    }
+
     public void removeStudent(/*int caoNum*/)
     {
         if(this.students != null)
@@ -107,8 +127,76 @@ public class StudentManager {
         }
     }
 
+    private String loopUntilValidEntry(String entryName)
+    {
+        boolean loop = true;
+        while(loop)
+        {
+            if(entryName.equals("caoNumber"))
+            {
+                String caoNum = enterField("caoNumber");
 
-    private String enterField(String field) {
+                if (caoNum.matches("[0-9]{8}"))
+                {
+                    return caoNum;
+                }
+                else
+                {
+                    System.out.println("CAO format invalid!");
+
+                }
+            }
+
+            else if(entryName.equals("dateOfBirth"))
+            {
+                String dob = enterField("dateOfBirth");
+
+                if (dob.matches("^[0-3]{1}\\d{1}/[0-1]{1}\\d{1}/20{1}\\d{2}"))
+                {
+                    return dob;
+                }
+                else
+                {
+                    System.out.println("Date of Birth format invalid!");
+
+                }
+            }
+
+            else if(entryName.equals("password"))
+            {
+                String password = enterField("password");
+                if(password.length() >= 8 && password.length() <= 16)
+                {
+                    return password;
+                }
+
+                else
+                {
+                    System.out.println("Password format invalid");
+                }
+            }
+
+            else if(entryName.equals("email"))
+            {
+                String email = enterField("email");
+
+                // regex found @ https://howtodoinjava.com/java/regex/java-regex-validate-email-address/
+                if (email.matches("^(.+)@(.+)\\.com$"))
+                {
+                    return email;
+                }
+                else
+                {
+                    System.out.println("Email format invalid!");
+
+                }
+            }
+        }
+        return null;
+    }
+
+    private String enterField(String field)
+    {
         String input;
         System.out.print("Please enter student's " + field + ":>" );
 

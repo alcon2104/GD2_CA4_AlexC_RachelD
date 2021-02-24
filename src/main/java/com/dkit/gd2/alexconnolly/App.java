@@ -229,7 +229,7 @@ public class App
                         courseManager.getCourse();
                         break;
                     case ADD_STUDENT:
-                        //studentManager.addStudent();
+                        studentManager.addStudent();
                         break;
                     case REMOVE_STUDENT:
                         studentManager.removeStudent();
