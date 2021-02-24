@@ -217,7 +217,7 @@ public class App
                         loop = false;
                         break;
                     case ADD_COURSE:
-                        //courseManager.addCourse();
+                        courseManager.addCourse();
                         break;
                     case REMOVE_COURSE:
                         courseManager.removeCourse();

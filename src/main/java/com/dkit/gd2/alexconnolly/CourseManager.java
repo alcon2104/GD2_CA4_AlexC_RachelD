@@ -97,13 +97,31 @@ public class CourseManager {
         }
     }
 //
-//
-//    public Course addCourse(String courseID)
-//    {
-        //take in course details from keyboard
-        //return a copy of the course to the map
-//    }
-//
+    public void addCourse()
+    {
+        String courseId = loopUntilValidEntry("courseId");
+        String level = loopUntilValidEntry("level");
+        String title = loopUntilValidEntry("title");
+        String institution = loopUntilValidEntry("institution");
+        boolean alreadyExists = false;
+
+        for(Course course : courses)
+        {
+            if(course.getCourseId()==(courseId)){
+                System.out.println(Colours.RED+"This course already exists, course will not be added"+Colours.RESET);
+                alreadyExists=true;
+            }
+        }
+
+        if(alreadyExists==false)
+        {
+            Course addedCourse = new Course(courseId, level, title, institution);
+            Course clonedCourse = new Course(addedCourse);
+
+            this.courses.add(addedCourse);
+            System.out.println(Colours.GREEN+"Course has been successfully added"+Colours.RESET);
+        }
+    }
 //
     public void removeCourse(/*String courseID*/)
     {
@@ -120,6 +138,72 @@ public class CourseManager {
                 System.out.println(Colours.RED + "That course does not exist" + Colours.RESET);
             }
         }
+    }
+
+    private String loopUntilValidEntry(String entryName)
+    {
+        boolean loop = true;
+        while(loop)
+        {
+            if(entryName.equals("courseId"))
+            {
+                String courseId = enterField("courseId");
+
+                if (courseId.matches("DK[0-9]{3}"))
+                {
+                    return courseId;
+                }
+                else
+                {
+                    System.out.println("course Id format invalid!");
+
+                }
+            }
+
+            else if(entryName.equals("level"))
+            {
+                String level = enterField("level");
+
+                if (level.matches("[5-8]{1}"))
+                {
+                    return level;
+                }
+                else
+                {
+                    System.out.println("Course level format invalid!");
+                }
+            }
+
+            else if(entryName.equals("title"))
+            {
+                String title = enterField("title");
+
+                if (title.matches("(.)+"))
+                {
+                    return title;
+                }
+                else
+                {
+                    System.out.println("Title format invalid");
+                }
+            }
+
+            else if(entryName.equals("institution"))
+            {
+                String institution = enterField("institution");
+
+                if (institution.matches("(.)+"))
+                {
+                    return institution;
+                }
+                else
+                {
+                    System.out.println("Institution format invalid!");
+
+                }
+            }
+        }
+        return null;
     }
 
     private String enterField(String field)
