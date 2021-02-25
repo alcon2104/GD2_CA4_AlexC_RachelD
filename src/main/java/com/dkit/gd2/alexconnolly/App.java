@@ -64,7 +64,7 @@ public class App
         boolean loop = true;
         while(loop)
         {
-            loginVerif=courseChoicesManager.login();
+            loginVerif= studentManager.login();
             if (loginVerif == true)
             {
                 doMainMenuLoop(studentManager, courseManager);
