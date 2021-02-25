@@ -6,20 +6,17 @@ package com.dkit.gd2.alexconnolly;
 
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class StudentManager {
 
     // Store all students in data structure
-    private List<Student> students;
+    private Map<Integer, Student> students;
     private static Scanner keyboard = new Scanner(System.in);
 
 
     public StudentManager() {
-        this.students = new LinkedList<>();
+        this.students = new HashMap<>();
         // Hardcode some values to get started
 
         // later, load from text file "students.dat" and populate studentsMap
@@ -39,7 +36,7 @@ public class StudentManager {
                 String email = data[3];
 
                 Student readInStudent = new Student(caoNum,dateOfBirth,password,email);
-                this.students.add(readInStudent);
+                this.students.put(caoNum, readInStudent);
             }
         }
 
@@ -53,10 +50,10 @@ public class StudentManager {
     public void saveStudentsToFile() {
         try(BufferedWriter studentsFile = new BufferedWriter(new FileWriter("students.txt")))
         {
-            for(Student student: students)
+            for(Map.Entry<Integer, Student> student : students.entrySet())
             {
-                studentsFile.write(student.getCaoNumber()+","+ student.getDateOfBirth()+ "," +student.getPassword()
-                        + "," +student.getEmail());
+                studentsFile.write(student.getValue().getCaoNumber()+","+ student.getValue().getDateOfBirth()
+                                    + "," +student.getValue().getPassword() + "," +student.getValue().getEmail());
                 studentsFile.write("\n");
             }
         }
@@ -83,42 +80,40 @@ public class StudentManager {
             }
         }
     }
-//
+
     public void addStudent()
     {
         int caoNumber = Integer.parseInt(loopUntilValidEntry("caoNumber"));
         String dateOfBirth = loopUntilValidEntry("dateOfBirth");
         String password = loopUntilValidEntry("password");
         String email = loopUntilValidEntry("email");
-        boolean alreadyExists = false;
 
-        for(Student student: students)
+        if(students.keySet().contains(caoNumber))
         {
-            if(student.getCaoNumber()==(caoNumber)){
-                System.out.println(Colours.RED+"This student already exists, student will not be added"+Colours.RESET);
-                alreadyExists=true;
-            }
+            System.out.println(Colours.RED+"This student already exists, student will not be added"+Colours.RESET);
         }
 
-        if(alreadyExists==false)
+
+        else
         {
             Student addedStudent = new Student(caoNumber, dateOfBirth, password, email);
             Student clonedStudent = new Student(addedStudent);
 
-            this.students.add(addedStudent);
+            this.students.put(caoNumber,addedStudent);
             System.out.println(Colours.GREEN+"Student has been successfully added"+Colours.RESET);
         }
     }
 
-    public void removeStudent(/*int caoNum*/)
+    public void removeStudent()
     {
         if(this.students != null)
         {
             int caoToRemove = Integer.parseInt(enterField("CAO number to remove"));
             Student studentToRemove = findStudent(caoToRemove);
 
-            if(studentToRemove != null){
-                students.remove(studentToRemove);
+            if(studentToRemove != null)
+            {
+                students.remove(studentToRemove.getCaoNumber());
             }
             else
             {
@@ -180,7 +175,8 @@ public class StudentManager {
             {
                 String email = enterField("email");
 
-                // regex found @ https://howtodoinjava.com/java/regex/java-regex-validate-email-address/
+                // base regex found @ https://howtodoinjava.com/java/regex/java-regex-validate-email-address/
+                //changed to include .com
                 if (email.matches("^(.+)@(.+)\\.com$"))
                 {
                     return email;
@@ -206,13 +202,11 @@ public class StudentManager {
 
     private Student findStudent(int caoToFind)
     {
-        for(Student student: students)
+        if(students.keySet().contains(caoToFind))
         {
-            if(student.getCaoNumber() == caoToFind)
-            {
-                return student;
-            }
+            return students.get(caoToFind);
         }
+
         return null;
     }
 
