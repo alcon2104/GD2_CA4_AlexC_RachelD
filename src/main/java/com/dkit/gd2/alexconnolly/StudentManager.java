@@ -210,6 +210,58 @@ public class StudentManager {
         return null;
     }
 
+    public boolean login()
+    {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println(Colours.PURPLE+"Please enter your CAO Number:");
+        String studentCaoNum = keyboard.nextLine();
+
+        if(verifyCaoNum(studentCaoNum))
+        {
+            int caoToFind = Integer.parseInt(studentCaoNum);
+            if(this.students.keySet().contains(caoToFind))
+            {
+                Student enteredStudent = students.get(caoToFind);
+                System.out.println("Please enter your date of birth:");
+                String studentDob = keyboard.nextLine();
+                System.out.println("Please enter your password:"+Colours.RESET);
+                String studentPassword = keyboard.nextLine();
+                if(enteredStudent.getDateOfBirth().equals(studentDob) && enteredStudent.getPassword().equals(studentPassword))
+                {
+                    System.out.println(Colours.GREEN + "You have logged in successfully"+Colours.RESET);
+                    return true;
+                }
+                else
+                {
+                    System.out.println(Colours.RED+"Your password or date of birth don't match, " +
+                            "please try logging in again"+Colours.RESET);
+                    return false;
+                }
+            }
+            else
+            {
+                System.out.println("This student does not exist.");
+            }
+        }
+        return false;
+    }
+
+    public boolean verifyCaoNum(String caoNum)
+    {
+        if(caoNum != null)
+        {
+            if (caoNum.matches("[0-9]{8}"))
+            {
+                return true;
+            }
+            else
+            {
+                System.out.println(Colours.RED+"CAO format invalid!"+Colours.RESET);
+                return false;
+            }
+        }
+        return false;
+    }
 //    public void isRegistered(int caoNum)
 //    {
 //        students.isValid();
