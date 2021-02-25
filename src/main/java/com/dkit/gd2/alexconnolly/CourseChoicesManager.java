@@ -105,24 +105,42 @@ public class CourseChoicesManager
         if(caoNumber!=0)
         {
             System.out.println("why");
-            findStudentWithChoices(caoNumber);
+            System.out.println(findStudentWithChoices(caoNumber));
         }
     }
 
-    private String loopUntilValidEntry(String caoNumber)
+    private String loopUntilValidEntry(String entryName)
     {
         boolean loop = true;
         while(loop)
         {
-            String caoNum = enterField("caoNumber");
+            if(entryName.equals("caoNumber"))
+            {
+                String caoNum = enterField("caoNumber");
 
-            if (caoNum.matches("[0-9]{8}"))
-            {
-                return caoNum;
+                if (caoNum.matches("[0-9]{8}"))
+                {
+                    return caoNum;
+                }
+                else
+                {
+                    System.out.println(Colours.RED+"CAO format invalid!"+Colours.RESET);
+
+                }
             }
-            else
+
+            else if(entryName.equals("courseId"))
             {
-                System.out.println("CAO format invalid!");
+                String courseId = enterField("courseId");
+
+                if (courseId.matches("^[A-Z]{2}[0-9]{3}"))
+                {
+                    return courseId;
+                }
+                else
+                {
+                    System.out.println(Colours.RED+"course Id format invalid!"+Colours.RESET);
+                }
             }
         }
         return null;
@@ -131,7 +149,37 @@ public class CourseChoicesManager
 
     void updateChoices()
     {
+        int caoNumber = Integer.parseInt(loopUntilValidEntry("caoNumber"));
 
+        if(caoNumber!=0)
+        {
+            System.out.println("We got this far");
+            if(findStudentWithChoices(caoNumber)!=null)
+            {
+                ArrayList<String> choices = studentChoices.get(caoNumber);
+                choices.clear();
+
+                boolean loop=true;
+                int count = 0;
+                System.out.println("How many choices?");
+                int numChoices = keyboard.nextInt();
+
+                while(loop)
+                {
+                    if(count==10 || count == numChoices)
+                    {
+                        loop = false;
+                    }
+                    choices.add(loopUntilValidEntry("courseId"));
+                    count++;
+                }
+                studentChoices.get(caoNumber).equals(choices);
+            }
+            else
+            {
+                System.out.println(Colours.RED+"Student doesn't have any choices to update."+Colours.RESET);
+            }
+        }
     }
 
     public void getAllCourses()
@@ -143,28 +191,17 @@ public class CourseChoicesManager
     {
         String input;
         System.out.print("Please enter student's " + field + ":>" );
-
         input = keyboard.nextLine();
         return input;
     }
 
-    private List<String> findStudentWithChoices(int caoToFind)
+    private ArrayList<String> findStudentWithChoices(int caoToFind)
     {
         if(studentChoices.keySet().contains(caoToFind))
         {
-            System.out.println("lifes a dinner");
             return this.studentChoices.get(caoToFind);
         }
         return null;
     }
 
-    @Override
-    public String toString() {
-        return "CourseChoicesManager{" +
-                "studentManager=" + studentManager +
-                ", courseManager=" + courseManager +
-                ", choices=" + choices +
-                ", studentChoices=" + studentChoices +
-                '}';
-    }
 }
