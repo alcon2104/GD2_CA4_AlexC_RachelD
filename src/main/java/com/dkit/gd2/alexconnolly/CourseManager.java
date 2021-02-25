@@ -1,9 +1,7 @@
 package com.dkit.gd2.alexconnolly;
 
 import java.io.*;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * CoursesManager
@@ -17,12 +15,12 @@ import java.util.Scanner;
 
 public class CourseManager {
 
-    private List<Course> courses;
+    private Map<String, Course> courses;
     private static Scanner keyboard = new Scanner(System.in);
 
 
     public CourseManager() {
-        this.courses = new LinkedList<>();
+        this.courses = new HashMap<>();
         // Hardcode some values to get started
         // load from text file "courses.dat" and populate coursesMap
     }
@@ -41,7 +39,7 @@ public class CourseManager {
                 String institution = data[3];
 
                 Course readInCourse = new Course(courseId, level, title, institution);
-                this.courses.add(readInCourse);
+                this.courses.put(courseId,readInCourse);
             }
         }
 
@@ -55,10 +53,10 @@ public class CourseManager {
     public void saveCoursesToFile() {
         try(BufferedWriter coursesFile = new BufferedWriter(new FileWriter("courses.txt")))
         {
-            for(Course course: courses)
+            for(Map.Entry<String, Course> course : courses.entrySet())
             {
-                coursesFile.write(course.getCourseId()+","+ course.getLevel()+ "," +course.getTitle()
-                        + "," +course.getInstitution());
+                coursesFile.write(course.getValue().getCourseId()+","+ course.getValue().getLevel()
+                                    + "," +course.getValue().getTitle() + "," +course.getValue().getInstitution());
                 coursesFile.write("\n");
             }
         }
@@ -88,50 +86,44 @@ public class CourseManager {
 
     public void getAllCourses()
     {
-        if (this.courses != null)
+        for(String key : courses.keySet())
         {
-            for(Course course: courses)
-            {
-                System.out.println(course);
-            }
+            System.out.println(courses.get(key));
         }
     }
-//
+
     public void addCourse()
     {
         String courseId = loopUntilValidEntry("courseId");
         String level = loopUntilValidEntry("level");
         String title = loopUntilValidEntry("title");
         String institution = loopUntilValidEntry("institution");
-        boolean alreadyExists = false;
 
-        for(Course course : courses)
+
+        if(courses.keySet().contains(courseId))
         {
-            if(course.getCourseId()==(courseId)){
-                System.out.println(Colours.RED+"This course already exists, course will not be added"+Colours.RESET);
-                alreadyExists=true;
-            }
+            System.out.println(Colours.RED+"This course already exists, course will not be added"+Colours.RESET);
         }
 
-        if(alreadyExists==false)
+        else
         {
             Course addedCourse = new Course(courseId, level, title, institution);
             Course clonedCourse = new Course(addedCourse);
 
-            this.courses.add(addedCourse);
+            this.courses.put(courseId,addedCourse);
             System.out.println(Colours.GREEN+"Course has been successfully added"+Colours.RESET);
         }
     }
-//
-    public void removeCourse(/*String courseID*/)
+
+    public void removeCourse()
     {
         if(this.courses != null)
         {
-            int idToRemove = Integer.parseInt(enterField("course ID to remove"));
+            String idToRemove = enterField("course ID to remove");
             Course courseToRemove = findCourse(idToRemove);
 
             if(courseToRemove != null){
-                courses.remove(courseToRemove);
+                courses.remove(courseToRemove.getCourseId());
             }
             else
             {
@@ -215,27 +207,13 @@ public class CourseManager {
         return input;
     }
 
-    private Course findCourse(int idToFind)
-    {
-        for(Course course : courses)
-        {
-            if(course.getCourseId().equals(idToFind))
-            {
-                return course;
-            }
-        }
-        return null;
-    }
-
     private Course findCourse(String idToFind)
     {
-        for(Course course : courses)
+        if(courses.keySet().contains(idToFind))
         {
-            if(course.getCourseId().equals(idToFind))
-            {
-                return course;
-            }
+            return courses.get(idToFind);
         }
+
         return null;
     }
 
