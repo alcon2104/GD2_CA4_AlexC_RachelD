@@ -37,7 +37,7 @@ public class App
         // so we 'inject' or pass-in these objects.
         //
         CourseChoicesManager courseChoicesManager = new CourseChoicesManager(studentManager, courseManager);
-
+        courseChoicesManager.loadStudentChoicesFromFile();
         //test runs for methods
         //StudentManager
 //        System.out.println(studentManager.getStudent(78231230));
@@ -56,6 +56,7 @@ public class App
         //mgr.saveToFile();
         studentManager.saveStudentsToFile();
         courseManager.saveCoursesToFile();
+        courseChoicesManager.saveStudentChoicesToFile();
     }
 
     private boolean loginVerification(CourseChoicesManager courseChoicesManager, StudentManager studentManager,
@@ -67,14 +68,15 @@ public class App
             loginVerif= studentManager.login();
             if (loginVerif == true)
             {
-                doMainMenuLoop(studentManager, courseManager);
+                doMainMenuLoop(studentManager, courseManager, courseChoicesManager);
                 loop = false;
             }
         }
         return false;
     }
 
-    private void doMainMenuLoop(StudentManager studentManager, CourseManager courseManager)
+    private void doMainMenuLoop(StudentManager studentManager, CourseManager courseManager,
+                                CourseChoicesManager courseChoicesManager)
     {
         boolean loop = true;
         MainMenu menuOption;
@@ -105,7 +107,7 @@ public class App
                         loop = false;
                         break;
                     case DISPLAY_STUDENT_MENU:
-                        doStudentMenuLoop(studentManager, courseManager);
+                        doStudentMenuLoop(courseChoicesManager, courseManager);
                         break;
                     case DISPLAY_ADMINISTRATOR_MENU:
                         doAdministratorMenuLoop(studentManager, courseManager);
@@ -129,7 +131,7 @@ public class App
         System.out.print("Enter a number to select the option (0 to quit):>");
     }
 
-    private void doStudentMenuLoop(StudentManager studentManager, CourseManager courseManager) {
+    private void doStudentMenuLoop(CourseChoicesManager courseChoicesManager, CourseManager courseManager) {
         boolean loop = true;
         StudentMenu menuOption;
         int option;
@@ -163,10 +165,10 @@ public class App
                        courseManager.getAllCourses();
                         break;
                     case DISPLAY_STUDENT_CHOICES:
-                        // studentManager.getStudentChoices();
+                        courseChoicesManager.getStudentChoices();
                         break;
                     case UPDATE_CHOICES:
-                       //studentManager.updateChoice();
+                       //courseChoicesManager.updateChoice();
                         break;
 
                 }

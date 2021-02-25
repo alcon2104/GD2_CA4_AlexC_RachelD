@@ -176,8 +176,8 @@ public class StudentManager {
                 String email = enterField("email");
 
                 // base regex found @ https://howtodoinjava.com/java/regex/java-regex-validate-email-address/
-                //changed to include .com
-                if (email.matches("^(.+)@(.+)\\.com$"))
+                //changed to include .com / .ie / etc.
+                if (email.matches("^(.+)@(.+)\\.\\d+$"))
                 {
                     return email;
                 }
@@ -210,7 +210,7 @@ public class StudentManager {
         return null;
     }
 
-    public boolean login()
+    protected boolean login()
     {
         Scanner keyboard = new Scanner(System.in);
         System.out.println(Colours.PURPLE+"Please enter your CAO Number:");

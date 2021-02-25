@@ -141,7 +141,7 @@ public class CourseManager {
             {
                 String courseId = enterField("courseId");
 
-                if (courseId.matches("DK[0-9]{3}"))
+                if (courseId.matches("^[A-Z]{2}[0-9]{3}"))
                 {
                     return courseId;
                 }
