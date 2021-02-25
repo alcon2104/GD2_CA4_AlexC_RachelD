@@ -168,7 +168,7 @@ public class App
                         courseChoicesManager.getStudentChoices();
                         break;
                     case UPDATE_CHOICES:
-                       //courseChoicesManager.updateChoice();
+                        courseChoicesManager.updateChoices();
                         break;
 
                 }
