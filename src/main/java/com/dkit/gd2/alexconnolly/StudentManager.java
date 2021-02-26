@@ -8,6 +8,12 @@ package com.dkit.gd2.alexconnolly;
 import java.io.*;
 import java.util.*;
 
+/**
+ *  Names: Alex Connolly & Rachel Daly
+ *  ID: D00226250 & D00227638
+ *
+ */
+
 public class StudentManager {
 
     // Store all students in data structure
@@ -15,14 +21,14 @@ public class StudentManager {
     private static Scanner keyboard = new Scanner(System.in);
 
 
-    public StudentManager() {
+    protected StudentManager() {
         this.students = new HashMap<>();
         // Hardcode some values to get started
 
         // later, load from text file "students.dat" and populate studentsMap
     }
 
-    public void loadStudentsFromFile() {
+    protected void loadStudentsFromFile() {
         try(Scanner studentsFile = new Scanner(new BufferedReader(new FileReader("students.txt"))))
         {
             String input;
@@ -47,7 +53,7 @@ public class StudentManager {
         }
     }
 
-    public void saveStudentsToFile() {
+    protected void saveStudentsToFile() {
         try(BufferedWriter studentsFile = new BufferedWriter(new FileWriter("students.txt")))
         {
             for(Map.Entry<Integer, Student> student : students.entrySet())
@@ -81,7 +87,7 @@ public class StudentManager {
         }
     }
 
-    public void addStudent()
+    protected void addStudent()
     {
         int caoNumber = Integer.parseInt(loopUntilValidEntry("caoNumber"));
         String dateOfBirth = loopUntilValidEntry("dateOfBirth");
@@ -104,7 +110,7 @@ public class StudentManager {
         }
     }
 
-    public void removeStudent()
+    protected void removeStudent()
     {
         if(this.students != null)
         {
@@ -114,6 +120,7 @@ public class StudentManager {
             if(studentToRemove != null)
             {
                 students.remove(studentToRemove.getCaoNumber());
+                System.out.println(Colours.GREEN + "Student removed successfully" + Colours.RESET);
             }
             else
             {
@@ -137,7 +144,7 @@ public class StudentManager {
                 }
                 else
                 {
-                    System.out.println("CAO format invalid!");
+                    System.out.println(Colours.RED +"CAO format invalid!"+ Colours.RESET);
 
                 }
             }
@@ -152,7 +159,7 @@ public class StudentManager {
                 }
                 else
                 {
-                    System.out.println("Date of Birth format invalid!");
+                    System.out.println(Colours.RED +"Date of Birth format invalid!"+ Colours.RESET);
 
                 }
             }
@@ -167,7 +174,7 @@ public class StudentManager {
 
                 else
                 {
-                    System.out.println("Password format invalid");
+                    System.out.println(Colours.RED +"Password format invalid"+ Colours.RESET);
                 }
             }
 
@@ -176,14 +183,14 @@ public class StudentManager {
                 String email = enterField("email");
 
                 // base regex found @ https://howtodoinjava.com/java/regex/java-regex-validate-email-address/
-                //changed to include .com / .ie / etc.
-                if (email.matches("^(.+)@(.+)\\.\\d+$"))
+                //changed to include .com
+                if (email.matches("^(.+)@(.+)\\.com$"))
                 {
                     return email;
                 }
                 else
                 {
-                    System.out.println("Email format invalid!");
+                    System.out.println(Colours.RED +"Email format invalid!"+ Colours.RESET);
 
                 }
             }
@@ -240,13 +247,13 @@ public class StudentManager {
             }
             else
             {
-                System.out.println("This student does not exist.");
+                System.out.println(Colours.RED+"This student does not exist."+Colours.RESET);
             }
         }
         return false;
     }
 
-    public boolean verifyCaoNum(String caoNum)
+    private boolean verifyCaoNum(String caoNum)
     {
         if(caoNum != null)
         {

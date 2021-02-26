@@ -2,6 +2,11 @@ package com.dkit.gd2.alexconnolly;
 
 import java.util.Scanner;
 
+/**
+ *  Names: Alex Connolly & Rachel Daly
+ *  ID: D00226250 & D00227638
+ *
+ */
 public class Student
 {
     private int caoNumber;  // In the CAO system, cao number is unique identifier for student
@@ -19,7 +24,7 @@ public class Student
     }
 
     // Constructor
-    public Student(int caoNumber, String dateOfBirth, String password, String email)
+    protected Student(int caoNumber, String dateOfBirth, String password, String email)
     {
         this.caoNumber = caoNumber;
         this.dateOfBirth = dateOfBirth;

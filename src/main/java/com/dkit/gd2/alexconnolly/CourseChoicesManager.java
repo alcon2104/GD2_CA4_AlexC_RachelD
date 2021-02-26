@@ -13,6 +13,10 @@ package com.dkit.gd2.alexconnolly;
 import java.io.*;
 import java.util.*;
 
+/**
+ *  Names: Alex Connolly & Rachel Daly
+ *  ID: D00226250 & D00227638
+ */
 public class CourseChoicesManager
 {
     private static Scanner keyboard = new Scanner(System.in);
@@ -37,10 +41,11 @@ public class CourseChoicesManager
     {
         this.studentManager = studentManager;
         this.courseManager = courseManager;
+        //this.choices = courseManager.getAllCourses();
         this.studentChoices = new HashMap<>();
     }
 
-    public void loadStudentChoicesFromFile() {
+    protected void loadStudentChoicesFromFile() {
         try(Scanner studentChoicesFile = new Scanner(new BufferedReader(new FileReader("studentChoices.txt"))))
         {
             String input;
@@ -72,7 +77,7 @@ public class CourseChoicesManager
         return studentCourses;
     }
 
-    public void saveStudentChoicesToFile() {
+    protected void saveStudentChoicesToFile() {
         try(BufferedWriter studentChoicesFile = new BufferedWriter(new FileWriter("studentChoices.txt")))
         {
             for(Map.Entry<Integer, ArrayList> studentChoice : studentChoices.entrySet())
@@ -147,7 +152,7 @@ public class CourseChoicesManager
     }
 
 
-    void updateChoices()
+    protected void updateChoices()
     {
         int caoNumber = Integer.parseInt(loopUntilValidEntry("caoNumber"));
 

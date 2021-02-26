@@ -13,19 +13,24 @@ import java.util.*;
  * course titles and institutions to the student.
  */
 
+/**
+ *  Names: Alex Connolly & Rachel Daly
+ *  ID: D00226250 & D00227638
+ *
+ */
 public class CourseManager {
 
     private Map<String, Course> courses;
     private static Scanner keyboard = new Scanner(System.in);
 
 
-    public CourseManager() {
+    protected CourseManager() {
         this.courses = new HashMap<>();
         // Hardcode some values to get started
         // load from text file "courses.dat" and populate coursesMap
     }
 
-    public void loadCoursesFromFile() {
+    protected void loadCoursesFromFile() {
         try(Scanner coursesFile = new Scanner(new BufferedReader(new FileReader("courses.txt"))))
         {
             String input;
@@ -50,7 +55,7 @@ public class CourseManager {
         }
     }
 
-    public void saveCoursesToFile() {
+    protected void saveCoursesToFile() {
         try(BufferedWriter coursesFile = new BufferedWriter(new FileWriter("courses.txt")))
         {
             for(Map.Entry<String, Course> course : courses.entrySet())
@@ -92,7 +97,7 @@ public class CourseManager {
         }
     }
 
-    public void addCourse()
+    protected void addCourse()
     {
         String courseId = loopUntilValidEntry("courseId");
         String level = loopUntilValidEntry("level");
@@ -115,7 +120,7 @@ public class CourseManager {
         }
     }
 
-    public void removeCourse()
+    protected void removeCourse()
     {
         if(this.courses != null)
         {
@@ -124,6 +129,7 @@ public class CourseManager {
 
             if(courseToRemove != null){
                 courses.remove(courseToRemove.getCourseId());
+                System.out.println(Colours.GREEN + "Course removed successfully" + Colours.RESET);
             }
             else
             {
@@ -147,7 +153,7 @@ public class CourseManager {
                 }
                 else
                 {
-                    System.out.println("course Id format invalid!");
+                    System.out.println(Colours.RED +"Course Id format invalid!"+ Colours.RESET);
 
                 }
             }
@@ -162,7 +168,7 @@ public class CourseManager {
                 }
                 else
                 {
-                    System.out.println("Course level format invalid!");
+                    System.out.println(Colours.RED +"Course level format invalid!"+ Colours.RESET);
                 }
             }
 
@@ -176,7 +182,7 @@ public class CourseManager {
                 }
                 else
                 {
-                    System.out.println("Title format invalid");
+                    System.out.println(Colours.RED +"Title format invalid"+ Colours.RESET);
                 }
             }
 
@@ -190,7 +196,7 @@ public class CourseManager {
                 }
                 else
                 {
-                    System.out.println("Institution format invalid!");
+                    System.out.println(Colours.RED +"Institution format invalid!"+ Colours.RESET);
 
                 }
             }

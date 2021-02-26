@@ -1,5 +1,9 @@
 package com.dkit.gd2.alexconnolly;
-
+/**
+ *  Names: Alex Connolly & Rachel Daly
+ *  ID: D00226250 & D00227638
+ *
+ */
 public class Colours {
     public static final String RESET="\u001B[37m"; //set as white due to using dark mode
     public static final String BLACK="\u001b[0m";

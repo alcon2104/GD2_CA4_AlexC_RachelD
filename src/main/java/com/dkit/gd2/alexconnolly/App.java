@@ -5,7 +5,8 @@ import java.util.Scanner;
 // Test to see if repo works
 
 /**
- *
+ *  Names: Alex Connolly & Rachel Daly
+ *  ID: D00226250 & D00227638
  * Notes:
  *  Synchronisation of multiple reads and writes to file is not considered here.
  *
@@ -43,7 +44,7 @@ public class App
 //        System.out.println(studentManager.getStudent(78231230));
 //        studentManager.removeStudent();
 
-        courseManager.getAllCourses();
+        //courseManager.getAllCourses();
 
 
         // display a menu to do things
@@ -51,9 +52,6 @@ public class App
 
         // manual testing of mgr public interface
 
-
-
-        //mgr.saveToFile();
         studentManager.saveStudentsToFile();
         courseManager.saveCoursesToFile();
         courseChoicesManager.saveStudentChoicesToFile();
@@ -69,6 +67,7 @@ public class App
             if (loginVerif == true)
             {
                 doMainMenuLoop(studentManager, courseManager, courseChoicesManager);
+                loginVerif=false;
                 loop = false;
             }
         }
@@ -110,7 +109,7 @@ public class App
                         doStudentMenuLoop(courseChoicesManager, courseManager);
                         break;
                     case DISPLAY_ADMINISTRATOR_MENU:
-                        doAdministratorMenuLoop(studentManager, courseManager);
+                        doAdministratorMenuLoop(studentManager, courseManager, courseChoicesManager);
                         break;
                 }
             }
@@ -189,7 +188,8 @@ public class App
     }
 
 
-    private void doAdministratorMenuLoop(StudentManager studentManager, CourseManager courseManager)
+    private void doAdministratorMenuLoop(StudentManager studentManager, CourseManager courseManager,
+                                         CourseChoicesManager courseChoicesManager)
     {
         boolean loop = true;
         AdministratorMenu menuOption;
@@ -225,10 +225,10 @@ public class App
                         courseManager.removeCourse();
                         break;
                     case DISPLAY_ALL_COURSES:
-                        courseManager.getAllCourses();
+                        courseChoicesManager.getAllCourses();
                         break;
                     case DISPLAY_COURSE_DETAILS:
-                        courseManager.getCourse();
+                        courseChoicesManager.getCourseDetails();
                         break;
                     case ADD_STUDENT:
                         studentManager.addStudent();
@@ -237,7 +237,7 @@ public class App
                         studentManager.removeStudent();
                         break;
                     case DISPLAY_STUDENT:
-                        studentManager.getStudent();
+                        courseChoicesManager.getStudentDetails();
                         break;
                 }
             }

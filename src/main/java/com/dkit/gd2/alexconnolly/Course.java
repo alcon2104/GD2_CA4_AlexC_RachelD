@@ -1,5 +1,9 @@
 package com.dkit.gd2.alexconnolly;
-
+/**
+ *  Names: Alex Connolly & Rachel Daly
+ *  ID: D00226250 & D00227638
+ *
+ */
 public class Course {
 
     private String courseId;   // e.g. DK821
@@ -22,7 +26,7 @@ public class Course {
 
 
     // Constructor
-    public Course(String courseId, String level,String title, String institution) {
+    protected Course(String courseId, String level,String title, String institution) {
         this.courseId = courseId;
         this.level = level;
         this.title = title;
@@ -34,23 +38,23 @@ public class Course {
     public String getCourseId() {
         return courseId;
     }
-    public void setCourseId(String courseId) {
+    private void setCourseId(String courseId) {
         this.courseId = courseId;
     }
     public String getLevel() {
         return level;
     }
-    public void setLevel(String level) {
+    private void setLevel(String level) {
         this.level = level;
     }
     public String getInstitution() {
         return institution;
     }
-    public void setInstitution(String institution) {
+    private void setInstitution(String institution) {
         this.institution = institution;
     }
     public String getTitle() { return title;  }
-    public void setTitle(String title) { this.title = title; }
+    private void setTitle(String title) { this.title = title; }
 
     @Override
     public String toString() {
